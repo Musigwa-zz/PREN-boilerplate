@@ -1,0 +1,556 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Titans-Devs Authors Haven",
+    "description": "A Social platform for the creative at heart",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "Users",
+      "description": "API for users in the system"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user is created",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get all users in system",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Users"
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "parameters": [
+        {
+          "name": "userId",
+          "in": "path",
+          "required": true,
+          "description": "ID of user that we want to find",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user with given ID",
+        "responses": {
+          "200": {
+            "description": "User is found",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete user with given ID",
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "User is deleted",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update user with give ID",
+        "tags": [
+          "Users"
+        ],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User with new values of properties",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User is updated",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/users/confirm/{auth_token}": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Send email send email verification",
+        "description": "This helps in verifying account created ",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email confirmed successfully!"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User already verified!"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 202
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Token is invalid or expired, try again"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 401
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User verification failed, User was not found"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/resend": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Re-send email verification",
+        "description": "This helps in resend email verification just in case email did not come.",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "User properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Email confirmed successfully!"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              }
+            }
+          },
+          "202": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User already verified!"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 202
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Token is invalid or expired, try again"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 401
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "User verification failed, User was not found"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 404
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/articles": {
+      "post": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Create an article",
+        "description": "This helps the user to create a new article",
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "description": "Article properties",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      }
+    },
+    "/articles/{slug}/bookmark": {
+      "post": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Bookmark an article",
+        "description": "This helps the user bookmark an article for reading it later",
+        "parameters": [
+          {
+            "name": "slug",
+            "in": "path",
+            "required": true,
+            "description": "Article's slug",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "CREATED",
+            "schema": {
+              "$ref": "#/definitions/Article"
+            }
+          }
+        }
+      }
+    },
+    "/article/{articleId}/share/fb": {
+      "get": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Share article on facebook",
+        "description": "This helps the user share their preferred article on facebook ",
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "description": "Article properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Post ready to be posted on facebook"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/{articleId}/share/email": {
+      "get": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Share article on email",
+        "description": "This helps the user share their preferred article on email ",
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "description": "Article properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Post ready to be posted on email"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/{articleId}/share/twitter": {
+      "get": {
+        "tags": [
+          "Articles"
+        ],
+        "summary": "Share article on twitter",
+        "description": "This helps the user share their preferred article on twitter ",
+        "parameters": [
+          {
+            "name": "article",
+            "in": "body",
+            "description": "Article properties"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "message": {
+                  "type": "string",
+                  "example": "Post ready to be posted on twitter"
+                },
+                "status": {
+                  "type": "number",
+                  "example": 200
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/article/{slug}/rating": {
+      "parameters": [
+        {
+          "slug": "article slug",
+          "in": "path",
+          "required": true,
+          "description": "article id we want to rate",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [
+          "Ratings"
+        ],
+        "summary": "Get the ratings for the given article",
+        "responses": {
+          "200": {
+            "description": "Rating retrieved",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update  a given rating ",
+        "tags": [
+          "Ratings"
+        ],
+        "parameters": [
+          {
+            "name": "rating",
+            "in": "body",
+            "description": "The rating for a blog post",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article rating has been edited successfully",
+            "schema": {
+              "$ref": "#/definitions/Rating"
+            }
+          }
+        }
+      }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "type": "object",
+          "properties": {
+            "email": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "Users": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Article": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "example": "An American ate the African chicken"
+        },
+        "body": {
+          "type": "string",
+          "example": "Ever wonder how the guy got his pocket empty because of the meal?"
+        },
+        "description": {
+          "type": "string",
+          "example": "'It was so delicious'. said the white man who ate the African chicken for his first time in Rwanda."
+        },
+        "tagsList": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "example": "javaScript"
+          }
+        }
+      }
+    }
+  }
+}}
