@@ -1,4 +1,4 @@
-# RNBoilerplate
+# PREN boilerplate
 Just to setup the PostgreSQL, React, and Express/NodeJs boilerplate to off ground faster
 
 this project was boostrapped by react-native expo.
